@@ -24,6 +24,8 @@ async function run() {
 
   undoConfig();
 
+  await ChildProcess("node",[tsPath]);
+
 }
 
 run().catch((e) => console.error(e.stack ? e.stack + "\r\n" + e : e));
