@@ -9,7 +9,7 @@ import { setupTsToES, undoConfig } from "./tsConfig";
 async function run() {
   setupTsToES();
 
-  const tsPath = path.join(__dirname, "../node_modules/typescript/lib/tsc.js");
+  const tsPath = require.resolve("typescript/lib/tsc.js");
 
   await ChildProcess("node",[tsPath]);
   // require('../node_modules/typescript/lib/tsc.js');
