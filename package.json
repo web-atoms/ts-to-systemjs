@@ -1,6 +1,6 @@
 {
   "name": "@web-atoms/ts-to-systemjs",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "TypeScript to SystemJS Transformer",
   "main": "index.js",
   "scripts": {
