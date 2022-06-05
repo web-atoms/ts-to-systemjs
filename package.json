@@ -1,4 +1,26 @@
 {
+  "name": "@web-atoms/ts-to-systemjs",
+  "version": "1.0.1",
+  "description": "TypeScript to SystemJS Transformer",
+  "main": "index.js",
+  "scripts": {
+    "postversion": "git push --follow-tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/web-atoms/ts-to-systemjs.git"
+  },
+  "keywords": [
+    "web",
+    "atoms",
+    "core"
+  ],
+  "author": "Akash Kava",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/web-atoms/ts-to-systemjs/issues"
+  },
+  "homepage": "https://github.com/web-atoms/ts-to-systemjs#readme",
   "dependencies": {
     "@babel/core": "^7.18.2",
     "@babel/plugin-transform-modules-systemjs": "^7.18.4",
