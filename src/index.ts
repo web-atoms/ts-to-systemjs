@@ -1,30 +1,22 @@
-import { spawn } from "child_process";
+import { existsSync } from "fs";
+import { rm } from "fs/promises";
 import * as path from "path";
-import changeExtension from "./changeExtension";
 import ChildProcess from "./ChildProcess";
-import renameFiles from "./renameFiles";
 import toSystemJS from "./toSystemJS";
-import { setupTsToES, undoConfig } from "./tsConfig";
 
 async function run() {
-  setupTsToES();
-
-  const tsPath = require.resolve("typescript/lib/tsc.js");
-
-  await ChildProcess("node",[tsPath]);
-  // require('../node_modules/typescript/lib/tsc.js');
 
   const start = path.join(process.cwd(), "dist");
 
-  await renameFiles(start, (name) => !/\.(sys|esm)\.js$/i.test(name)
-    ? changeExtension(name, ".js", ".esm.js")
-    : name);
+  // clearing dist...
+  if (existsSync(start)) {
+    await rm(start, { recursive: true, force: true});
+  }
+
+  const tsPath = require.resolve("typescript/lib/tsc.js");
+  await ChildProcess("node",[tsPath, "--module" , "esnext"]);
 
   await toSystemJS(start);
-
-  undoConfig();
-
-  await ChildProcess("node",[tsPath]);
 
 }
 

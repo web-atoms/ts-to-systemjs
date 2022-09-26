@@ -13,7 +13,7 @@ export default async function toSystemJS(dir) {
             all.push(toSystemJS(fullPath));
             continue;
         }
-        if (iterator.name.endsWith(".esm.js")) {
+        if (iterator.name.endsWith(".js")) {
             all.push(transform(fullPath));
         }
     }
@@ -26,18 +26,21 @@ const presets = {
     sourceMaps: true,
     comments: false,
     "plugins": [
-        "@babel/plugin-syntax-dynamic-import",
-        "@babel/plugin-transform-modules-systemjs"
+        require.resolve("@babel/plugin-syntax-dynamic-import"),
+        require.resolve("@babel/plugin-transform-modules-systemjs")
     ]
 };
 
 async function transform(name: string) {
+    console.log(`Transforming from esm to systemjs ${name}`);
     // const code = await readFile(name, "utf-8" );
     const result = await babel.transformFileAsync(name, presets);
-    const target = changeExtension(name, ".esm.js", ".sys.js");
-    const { base: baseName } = path.parse(target);
-    await writeFile(target, result.code + `\r\n//# sourceMappingURL=${baseName}.map`);
+    // const target = changeExtension(name, ".esm.js", ".sys.js");
+    const target = name;
+    // const { base: baseName } = path.parse(target);
+    await writeFile(target, result.code + `\r\n//# sourceMappingURL=${target}.map`);
     await writeFile(target + ".map", JSON.stringify(result.map));
-    await unlink(name);
+    // await unlink(name);
+    console.log(`Saved ${name}`);
 }
 
