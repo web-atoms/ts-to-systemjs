@@ -37,8 +37,8 @@ async function transform(name: string) {
     const result = await babel.transformFileAsync(name, presets);
     // const target = changeExtension(name, ".esm.js", ".sys.js");
     const target = name;
-    const { base: baseName, ext } = path.parse(target);
-    await writeFile(target, result.code + `\r\n//# sourceMappingURL=${baseName}${ext}.map`);
+    const { base: baseName } = path.parse(target);
+    await writeFile(target, result.code + `\r\n//# sourceMappingURL=${baseName}.map`);
     await writeFile(target + ".map", JSON.stringify(result.map));
     // await unlink(name);
     console.log(`Saved ${name}`);
