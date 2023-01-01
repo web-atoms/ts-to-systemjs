@@ -4,7 +4,7 @@ import * as path from "path";
 import ChildProcess from "./ChildProcess";
 import toSystemJS from "./toSystemJS";
 
-async function run() {
+export default async function run() {
 
   const start = path.join(process.cwd(), "dist");
 
@@ -19,5 +19,3 @@ async function run() {
   await toSystemJS(start);
 
 }
-
-run().catch((e) => console.error(e.stack ? e.stack + "\r\n" + e : e));
