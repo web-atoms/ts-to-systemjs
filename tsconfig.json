@@ -7,7 +7,8 @@
         "declarationMap": true,
         "moduleResolution": "node",
         "outDir": "dist",
-        "experimentalDecorators": true
+        "experimentalDecorators": true,
+        "skipLibCheck": true
     },
     "include": [
         "src/**/*"
