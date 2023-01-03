@@ -14,7 +14,7 @@ export default async function run() {
   }
 
   const tsPath = require.resolve("typescript/lib/tsc.js");
-  await ChildProcess("node",[tsPath, "--module" , "esnext"]);
+  await ChildProcess("node",[tsPath, "--module" , "esnext", "--importHelpers", "true"]);
 
   await toSystemJS(start);
 
