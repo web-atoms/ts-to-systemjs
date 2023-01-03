@@ -2,21 +2,38 @@ import { readdir, writeFile, readFile, unlink } from "fs/promises";
 import * as babel from "@babel/core";
 import changeExtension from "./changeExtension";
 import path = require("path");
+import { readdirSync } from "fs";
 
-export default async function toSystemJS(dir) {
-
-    const files = await readdir(dir, { withFileTypes: true });
-    const all = [];
+function enumerateAll(dir, all?) {
+    all ??= [];
+    const files = readdirSync(dir, { withFileTypes: true });
     for (const iterator of files) {
         const fullPath = path.join(dir, iterator.name);
         if (iterator.isDirectory()) {
-            all.push(toSystemJS(fullPath));
+            enumerateAll(fullPath, all);
             continue;
         }
         if (iterator.name.endsWith(".js")) {
             all.push(transform(fullPath));
-        }
+        }        
     }
+    return all;
+}
+
+export default async function toSystemJS(dir) {
+
+    // const files = await readdir(dir, { withFileTypes: true });
+    const all = enumerateAll(dir);
+    // for (const iterator of files) {
+    //     const fullPath = path.join(dir, iterator.name);
+    //     if (iterator.isDirectory()) {
+    //         all.push(toSystemJS(fullPath));
+    //         continue;
+    //     }
+    //     if (iterator.name.endsWith(".js")) {
+    //         all.push(transform(fullPath));
+    //     }
+    // }
 
     await Promise.all(all);
 }
@@ -24,7 +41,9 @@ export default async function toSystemJS(dir) {
 const presets = {
     sourceType: "module",
     sourceMaps: true,
+    compact: true,
     comments: false,
+    getModuleId: () => "v",
     "plugins": [
         require.resolve("@babel/plugin-syntax-dynamic-import"),
         require.resolve("@babel/plugin-transform-modules-systemjs")
