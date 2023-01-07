@@ -41,7 +41,7 @@ export default async function toSystemJS(dir) {
 const presets = {
     sourceType: "module",
     sourceMaps: true,
-    compact: true,
+    compact: false,
     comments: false,
     getModuleId: () => "v",
     "plugins": [
