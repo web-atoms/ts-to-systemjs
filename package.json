@@ -1,6 +1,6 @@
 {
   "name": "@web-atoms/ts-to-systemjs",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "description": "TypeScript to SystemJS Transformer",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "atoms",
     "core"
   ],
-  "bin":{
+  "bin": {
     "tssystemjs": "./bin/tssystemjs"
   },
   "author": "Akash Kava",
