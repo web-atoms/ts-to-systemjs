@@ -15,6 +15,9 @@
     "atoms",
     "core"
   ],
+  "bin":{
+    "tssystemjs": "./bin/tssystemjs"
+  },
   "author": "Akash Kava",
   "license": "MIT",
   "bugs": {
