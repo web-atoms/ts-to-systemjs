@@ -46,7 +46,8 @@ const presets = {
     getModuleId: () => "v",
     "plugins": [
         require.resolve("@babel/plugin-transform-dynamic-import"),
-        require.resolve("@babel/plugin-transform-modules-systemjs")
+        require.resolve("@babel/plugin-transform-modules-systemjs"),
+        require.resolve("@babel/plugin-proposal-explicit-resource-management")
     ]
 };
 
